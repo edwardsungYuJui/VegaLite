@@ -1,0 +1,30 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "name": "counties",
+    "url": "data/us-10m.json",
+    "format": {"type": "topojson", "feature": "counties"}
+  },
+  "transform": [
+    {
+      "lookup": "id",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/nytimes/covid-19-data/master/live/us-counties.csv"
+        },
+        "key": "fips",
+        "fields": ["cases"]
+      }
+    }
+  ],
+  "projection": {"type": "albersUsa"},
+  "mark": "geoshape",
+  "encoding": {
+    "color": {
+      "field": "cases",
+      "type": "quantitative",
+      "scale": {"type": "log"}
+    }
+  },
+  "config": {}
+}
